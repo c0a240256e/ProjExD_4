@@ -177,10 +177,10 @@ class Beam(pg.sprite.Sprite):
             self.kill()
             
             
+
 class NeoBeam():
     """
-    複数ビームを打つことに関するクラス
-    左シフトを押したときにビームが増える
+    左シフトを押したままスペースキーを押すと複数射出する。
     """
     def __init__(self, bird: Bird, num: int):
         self.bird = bird
@@ -191,6 +191,7 @@ class NeoBeam():
         
         if self.num == 1:
             angles = [0]    #ビーム個数が1の時、直線に打つ
+            angles = [0]
         else:
             step = 100 / (self.num - 1)
             angles = range(-50, +51, int(step))
@@ -201,6 +202,7 @@ class NeoBeam():
             
         return beams
             
+        
 
 
 class Explosion(pg.sprite.Sprite):
@@ -399,8 +401,6 @@ def main():
     while True:
         key_lst = pg.key.get_pressed()        
         for event in pg.event.get():
-            if event.type == pg.QUIT:
-                return 0
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 if key_lst[pg.K_LSHIFT]:
                     nb = NeoBeam(bird, 5)
